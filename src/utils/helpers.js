@@ -98,6 +98,12 @@ export function formatCalendarResults(results) {
     : setMissingDates(JSON.parse(results));
 }
 
+export const getDailyReminderValue = () => {
+  return {
+    today: "👋 Don't forget to log your data today!"
+  };
+};
+
 export const getMetricMetaInfo = metric => {
   const info = {
     run: {
@@ -123,7 +129,7 @@ export const getMetricMetaInfo = metric => {
       getIcon() {
         return (
           <View>
-            <MaterialCommunityIcons name="bike" color='black' size={32} />
+            <MaterialCommunityIcons name="bike" color="black" size={32} />
           </View>
         );
       }

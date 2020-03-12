@@ -1,20 +1,17 @@
 import React, { Component } from 'react';
-import { Platform, StyleSheet, Text, View, Slider } from 'react-native';
-import { Ionicons } from '@expo/vector-icons';
+import { StyleSheet, View } from 'react-native';
 import UAddEntry from './src/components/UAddEntry';
-
+import { createStore } from 'redux';
+import { Provider } from 'react-redux';
+import { entries } from './src/redux/reducers';
 export default class App extends Component {
-  state = {
-    value: 0
-  };
-  handleValueChange = value => {
-    this.setState({ value });
-  };
   render() {
     return (
-      <View style={styles.container}>
-        <UAddEntry />
-      </View>
+      <Provider store={createStore(entries)}>
+        <View style={styles.container}>
+          <UAddEntry />
+        </View>
+      </Provider>
     );
   }
 }
