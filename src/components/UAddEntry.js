@@ -1,5 +1,12 @@
 import React, { Component } from 'react';
-import { View, Text, TouchableOpacity } from 'react-native';
+import {
+  View,
+  Text,
+  TouchableOpacity,
+  StyleSheet,
+  Platform
+} from 'react-native';
+
 import {
   getMetricMetaInfo,
   timeToString,
@@ -12,10 +19,60 @@ import { Ionicons } from '@expo/vector-icons';
 import { UTextButton } from './UTextButton';
 import { connect } from 'react-redux';
 import { addEntry } from '../redux/actions';
+import { white, blue, lightPurple, orange, purple } from '../utils/colors';
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    padding: 20,
+    backgroundColor: white
+  },
+  row: {
+    flex: 1,
+    flexDirection: 'row',
+    alignItems: 'center'
+  },
+  iosSubmitBtn: {
+    backgroundColor: purple,
+    padding: 10,
+    borderRadius: 7,
+    height: 45,
+    marginLeft: 40,
+    marginRight: 40
+  },
+  androidSubmitBtn: {
+    backgroundColor: purple,
+    padding: 10,
+    paddingLeft: 30,
+    paddingRight: 30,
+    height: 45,
+    borderRadius: 2,
+    alignSelf: 'flex-end',
+    justifyContent: 'center',
+    alignItems: 'center'
+  },
+  text: {
+    color: white,
+    fontSize: 22,
+    textAlign: 'center'
+  },
+  center: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginLeft: 30,
+    marginRight: 30
+  }
+});
 const SubmitBtn = ({ onPress }) => {
   return (
-    <TouchableOpacity onPress={onPress}>
-      <Text>Save</Text>
+    <TouchableOpacity
+      style={
+        Platform.OS === 'ios' ? styles.iosSubmitBtn : styles.androidSubmitBtn
+      }
+      onPress={onPress}
+    >
+      <Text style={styles.text}>Save</Text>
     </TouchableOpacity>
   );
 };
@@ -83,28 +140,34 @@ class UAddEntry extends Component {
   render() {
     if (this.props.hasLoggedInfo) {
       return (
-        <View>
-          <Ionicons name={'ios-happy'} size={100} />
+        <View style={styles.center}>
+          <Ionicons
+            name={Platform.OS === 'ios' ? 'ios-happy' : 'md-happy'}
+            size={100}
+          />
           <Text>You have already logged in your info for today</Text>
-          <UTextButton onPress={this.handleReset}>reset</UTextButton>
+          <UTextButton style={{ padding: 10 }} onPress={this.handleReset}>
+            reset
+          </UTextButton>
         </View>
       );
     }
 
     const allMetrics = getMetricMetaInfo();
     return (
-      <View>
+      <View style={styles.container}>
         <UDate date={new Date().toLocaleDateString()} />
         {Object.keys(allMetrics).map(key => {
           const { getIcon, type, ...rest } = allMetrics[key];
           const value = this.state[key];
           return (
-            <View key={key}>
+            <View key={key} style={styles.row}>
               {getIcon()}
               {type === 'slider' ? (
                 <USlider
                   value={value}
                   onChange={value => this.handleSlide(key, value)}
+                  {...rest}
                 />
               ) : (
                 <UStepper

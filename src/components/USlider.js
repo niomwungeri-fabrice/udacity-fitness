@@ -1,11 +1,13 @@
 import React from 'react';
-import { View, Text, Slider } from 'react-native';
-
-export const USlider = props => {
-  const { max, unit, step, value, onChange } = props;
+import { View, Text, Slider, StyleSheet } from 'react-native';
+import { gray } from '../utils/colors';
+export const USlider = ({ max, unit, step, value, onChange }) => {
+  // const { max, unit, step, value, onChange } = props;
+  console.log(step, '========');
   return (
-    <View>
+    <View style={styles.row}>
       <Slider
+        style={{ flex: 1 }}
         step={step}
         value={value}
         maximumValue={max}
@@ -13,9 +15,17 @@ export const USlider = props => {
         onValueChange={onChange}
       ></Slider>
       <View>
-        <Text>{value}</Text>
-        <Text>{unit}</Text>
+        <Text style={{ fontSize: 24, textAlign: 'center' }}>{value}</Text>
+        <Text style={{ fontSize: 18, color: gray }}>{unit}</Text>
       </View>
     </View>
   );
 };
+
+const styles = StyleSheet.create({
+  row: {
+    flexDirection: 'row',
+    flex: 1,
+    alignItems: 'center'
+  }
+});
