@@ -12,6 +12,7 @@ import {
   timeToString,
   getDailyReminderValue
 } from '../utils/helpers';
+
 import { USlider } from './USlider';
 import { UStepper } from './UStepper';
 import { UDate } from './UDate';
@@ -19,7 +20,7 @@ import { Ionicons } from '@expo/vector-icons';
 import { UTextButton } from './UTextButton';
 import { connect } from 'react-redux';
 import { addEntry } from '../redux/actions';
-import { white, blue, lightPurple, orange, purple } from '../utils/colors';
+import { white, purple } from '../utils/colors';
 
 const styles = StyleSheet.create({
   container: {
@@ -189,7 +190,7 @@ class UAddEntry extends Component {
 const mapStateToProps = state => {
   const key = timeToString();
   return {
-    hasLoggedInfo: state && typeof state[key].today === 'undefined'
+    hasLoggedInfo: state[key] && typeof state[key].today === 'undefined'
   };
 };
 

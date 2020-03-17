@@ -2,8 +2,6 @@ import React from 'react';
 import { View, Text, Slider, StyleSheet } from 'react-native';
 import { gray } from '../utils/colors';
 export const USlider = ({ max, unit, step, value, onChange }) => {
-  // const { max, unit, step, value, onChange } = props;
-  console.log(step, '========');
   return (
     <View style={styles.row}>
       <Slider
