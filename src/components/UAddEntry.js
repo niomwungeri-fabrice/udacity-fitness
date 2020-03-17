@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+import { CommonActions } from '@react-navigation/native';
+import { useNavigation } from '@react-navigation/native';
 import {
   View,
   Text,
@@ -98,7 +100,7 @@ class UAddEntry extends Component {
     );
     this.setState({ run: 0, swim: 0, bike: 0, eat: 0, sleep: 0 });
     // Navigate to home
-    // clear local notification
+    this.toHome();
   };
 
   handleIncrement = metric => {
@@ -137,6 +139,11 @@ class UAddEntry extends Component {
       })
     );
     // Navigate to home
+    this.toHome();
+  };
+  toHome = () => {
+    const { navigation } = this.props;
+    return navigation.dispatch(CommonActions.navigate({ name: 'Add Entry' }));
   };
   render() {
     if (this.props.hasLoggedInfo) {

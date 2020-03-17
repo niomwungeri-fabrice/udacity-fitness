@@ -9,12 +9,11 @@ import entries from './src/redux/reducers';
 import { NavigationContainer } from '@react-navigation/native';
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-
-import UHistory from './src/components/UHistory';
 import UAddEntry from './src/components/UAddEntry';
 import { purple, white } from './src/utils/colors';
-
-import { Ionicons, FontAwesome } from '@expo/vector-icons';
+import { Ionicons, FontAwesome, MaterialIcons } from '@expo/vector-icons';
+import UHistoryStack from './src/components/UHistoryStack';
+import ULive from './src/components/ULive';
 
 function AppStatusBar({ backgroundColor, ...props }) {
   return (
@@ -28,7 +27,6 @@ const Tabs =
   Platform.OS === 'ios'
     ? createBottomTabNavigator()
     : createMaterialTopTabNavigator();
-
 export default function App() {
   return (
     <Provider store={createStore(entries)}>
@@ -47,6 +45,14 @@ export default function App() {
                 } else if (route.name === 'History') {
                   icon = (
                     <Ionicons name="ios-bookmarks" size={size} color={color} />
+                  );
+                } else if (route.name === 'Live') {
+                  icon = (
+                    <MaterialIcons
+                      name="directions-walk"
+                      size={size}
+                      color={color}
+                    />
                   );
                 }
                 return icon;
@@ -67,8 +73,9 @@ export default function App() {
               }
             }}
           >
+            <Tabs.Screen name="History" component={UHistoryStack} />
             <Tabs.Screen name="Add Entry" component={UAddEntry} />
-            <Tabs.Screen name="History" component={UHistory} />
+            <Tabs.Screen name="Live" component={ULive} />
           </Tabs.Navigator>
         </NavigationContainer>
       </View>
