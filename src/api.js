@@ -3,6 +3,7 @@ import {
   CALENDAR_STORAGE_KEY,
   formatCalendarResults
 } from '../src/utils/_calendar';
+
 export const submitEntry = ({ entry, key }) => {
   return AsyncStorage.mergeItem(
     CALENDAR_STORAGE_KEY,

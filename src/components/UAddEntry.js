@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { CommonActions } from '@react-navigation/native';
-import { useNavigation } from '@react-navigation/native';
 import {
   View,
   Text,
@@ -12,7 +11,9 @@ import {
 import {
   getMetricMetaInfo,
   timeToString,
-  getDailyReminderValue
+  getDailyReminderValue,
+  clearLocalNotification,
+  setLocalNotification
 } from '../utils/helpers';
 
 import { USlider } from './USlider';
@@ -23,6 +24,7 @@ import { UTextButton } from './UTextButton';
 import { connect } from 'react-redux';
 import { addEntry } from '../redux/actions';
 import { white, purple } from '../utils/colors';
+import { submitEntry } from '../api';
 
 const styles = StyleSheet.create({
   container: {
@@ -92,14 +94,17 @@ class UAddEntry extends Component {
   handleSubmit = () => {
     const key = timeToString();
     const entry = this.state;
-    // contact/update redux store
     this.props.dispatch(
       addEntry({
         [key]: entry
       })
     );
     this.setState({ run: 0, swim: 0, bike: 0, eat: 0, sleep: 0 });
-    // Navigate to home
+
+    submitEntry({ key, entry });
+
+    clearLocalNotification().then(setLocalNotification);
+
     this.toHome();
   };
 
@@ -138,7 +143,6 @@ class UAddEntry extends Component {
         [key]: getDailyReminderValue()
       })
     );
-    // Navigate to home
     this.toHome();
   };
   toHome = () => {

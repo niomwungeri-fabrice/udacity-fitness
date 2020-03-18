@@ -7,11 +7,20 @@
     "privacy": "unlisted",
     "sdkVersion": "36.0.0",
     "version": "1.0.0",
+    "icon": "https://tylermcginnis.com/udacifitness-512.png",
+    "notification": {
+      "icon": "https://tylermcginnis.com/udacifitness-45.png"
+    },
+    "ios": {
+      "bundleIdentifier": "org.udacityFitness.exp"
+    },
+    "android": {
+      "package": "org.udacityFitness.exp"
+    },
     "entryPoint": "node_modules/expo/AppEntry.js",
     "platforms": [
       "ios",
-      "android",
-      "web"
+      "android"
     ]
   }
 }
